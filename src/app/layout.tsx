@@ -1,25 +1,32 @@
 import "./globals.css";
+import "cal-sans";
+
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { Analytics } from "@vercel/analytics/react";
-
-import { getMetadata } from "~/lib/metadata";
-import Providers from "./providers";
+import { cn } from "@/lib/utils";
+import Navbar from "./_navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = getMetadata();
+export const metadata: Metadata = {
+  title: "µScale - Next.js and Replicate template",
+  description: "A Next.js and Replicate template to upscale your images.",
+};
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
-        <Providers>{children}</Providers>
-        <Analytics />
+    <html lang="en">
+      <body
+        className={cn("antialiased max-w-7xl mx-auto mb-20", inter.className)}
+      >
+        <main>
+          <Navbar />
+          {children}
+        </main>
       </body>
     </html>
   );
