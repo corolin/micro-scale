@@ -5,6 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import UserDropdownMenu from "./_user-menu";
 
+export const dynamic = "force-dynamic";
+
 async function getUserCredits(userId?: string) {
   if (!userId) return null;
   const supabase = await createSupabaseServerClient();
@@ -12,6 +14,7 @@ async function getUserCredits(userId?: string) {
     .from("credits")
     .select()
     .eq("user_id", userId);
+
   return data?.[0]?.amount as number;
 }
 

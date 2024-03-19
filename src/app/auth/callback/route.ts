@@ -1,9 +1,8 @@
 import { env } from "@/env.mjs";
+import createSupabaseAdminClient from "@/lib/supabase/admin";
 import createSupabaseServerClient from "@/lib/supabase/server";
-import { SupabaseClient } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-import { Database } from "../../../../types/supabase";
 
 export async function GET(request: Request) {
   const requestUrl = new URL(request.url);
@@ -29,7 +28,7 @@ export async function GET(request: Request) {
      * Check if the user has its userId linked in the "credits" table (DB)
      * If not, create a new record for the user with the default amount of credits (env.DEFAULT_CREDITS_PER_USER)
      */
-    const { error: creditsError } = await initializeCredits(supabase, userId);
+    const { error: creditsError } = await initializeCredits(userId);
     if (creditsError) {
       return NextResponse.redirect(`${origin}/auth/auth-code-error`);
     }
@@ -42,10 +41,9 @@ export async function GET(request: Request) {
   }
 }
 
-async function initializeCredits(
-  supabase: SupabaseClient<Database, "public">,
-  userId: string
-) {
+async function initializeCredits(userId: string) {
+  const supabase = await createSupabaseAdminClient();
+
   const { data } = await supabase
     .from("credits")
     .select()

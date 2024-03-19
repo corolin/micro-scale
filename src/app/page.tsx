@@ -67,7 +67,6 @@ export default function Home() {
             <p className="text-sm text-zinc-500">
               Buy credits to upscale your images
             </p>
-            spI
           </div>
           <div className="w-full h-full bg-white border border-zinc-200 p-5 rounded-3xl rounded-tl-none space-y-2">
             <Image

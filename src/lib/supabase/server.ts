@@ -5,9 +5,6 @@ import { env } from "@/env.mjs";
 import { cookies } from "next/headers";
 import type { Database } from "../../../types/supabase";
 
-/**
- * Used to create a Supabase server service client that bypass RLS
- */
 export default async function createSupabaseServerClient() {
   const cookieStore = cookies();
 

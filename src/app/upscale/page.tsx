@@ -1,3 +1,5 @@
+import UpscaleProvider from "@/features/upscale/context";
+import UploadTemplate from "@/features/upscale/templates/upload";
 import getUserSession from "@/lib/actions/get-user-session";
 import { redirect } from "next/navigation";
 
@@ -8,5 +10,9 @@ export default async function Page() {
     return redirect("/sign-in");
   }
 
-  return <div>Page</div>;
+  return (
+    <UpscaleProvider>
+      <UploadTemplate />
+    </UpscaleProvider>
+  );
 }
