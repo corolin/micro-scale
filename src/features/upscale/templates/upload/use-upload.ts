@@ -26,7 +26,7 @@ export default function useUpload() {
       });
 
       if (!res.ok) {
-        throw new Error(await res.text());
+        throw await res.json();
       }
 
       // 2. Trigger the replicate function with the image url
@@ -40,6 +40,17 @@ export default function useUpload() {
       setCurrentPredictionId(response.id);
     } catch (error: unknown) {
       setStatus("error");
+
+      type ErrorType = { error: string };
+      if (
+        error &&
+        "error" in (error as ErrorType) &&
+        typeof (error as ErrorType).error === "string"
+      ) {
+        toast.error((error as ErrorType).error);
+        return;
+      }
+
       toast.error("Failed to upscale the image");
     }
   };

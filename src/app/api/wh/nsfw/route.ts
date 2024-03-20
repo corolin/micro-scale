@@ -26,8 +26,9 @@ export async function POST(req: NextRequest) {
 
   const isNSFW = body.output.nsfw_detected;
 
+  const supabase = await createSupabaseAdminClient();
+
   if (isNSFW) {
-    const supabase = await createSupabaseAdminClient();
     // Remove the image from the storage bucket
     await supabase.storage.from("predictions").remove([inputUrl]);
     const { error: updatePredictionError } = await supabase
@@ -64,6 +65,12 @@ export async function POST(req: NextRequest) {
   });
 
   if (error) {
+    const { error: updatePredictionError } = await supabase
+      .from("predictions")
+      .update({
+        status: PredictionStatus.FAILED,
+      })
+      .eq("id", predictionId);
     return NextResponse.json(
       { message: "An issue has occured with the AI model." },
       { status: 500 }

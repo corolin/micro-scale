@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
 
     if (!userCredits || userCredits?.amount === 0) {
       return NextResponse.json(
-        { message: "Insufficient credits" },
+        { error: "Insufficient credits" },
         { status: 402 }
       );
     }
@@ -49,11 +49,11 @@ export async function POST(req: NextRequest) {
 
     if (updateCreditsError) {
       return NextResponse.json(
-        { message: updateCreditsError.message },
+        { error: updateCreditsError.message },
         { status: 500 }
       );
     }
-    revalidatePath('/upscale', 'layout');
+    revalidatePath("/upscale", "layout");
 
     // #1 Upload the image to a Supabase storage bucket
     const { data: uploadedImage, error: uploadError } = await supabase.storage
@@ -62,10 +62,7 @@ export async function POST(req: NextRequest) {
         contentType: file.type,
       });
     if (uploadError) {
-      return NextResponse.json(
-        { message: uploadError.message },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: uploadError.message }, { status: 500 });
     }
 
     const {
@@ -73,7 +70,7 @@ export async function POST(req: NextRequest) {
     } = supabase.storage.from("predictions").getPublicUrl(uploadedImage.path);
     if (!publicUrl) {
       return NextResponse.json(
-        { message: "Failed to get the public URL" },
+        { error: "Failed to get the public URL" },
         { status: 500 }
       );
     }
@@ -88,7 +85,7 @@ export async function POST(req: NextRequest) {
       });
     if (insertPredictionError) {
       return NextResponse.json(
-        { message: insertPredictionError.message },
+        { error: insertPredictionError.message },
         { status: 500 }
       );
     }
@@ -102,7 +99,7 @@ export async function POST(req: NextRequest) {
 
     if (!newPrediction) {
       return NextResponse.json(
-        { message: "Failed to retrieve the new prediction" },
+        { error: "Failed to retrieve the new prediction" },
         { status: 404 }
       );
     }
@@ -112,21 +109,21 @@ export async function POST(req: NextRequest) {
     webhookUrl.searchParams.set("id", newPrediction.id.toString());
     webhookUrl.searchParams.set("input_url", publicUrl);
 
-    const { error: replicateError } = await replicate.predictions.create({
-      version: REPLICATE_NSFW_MODEL,
-      input: {
-        image: publicUrl,
-      },
-      webhook: webhookUrl.toString(),
-      webhook_events_filter: ["completed"],
-    });
+    // const { error: replicateError } = await replicate.predictions.create({
+    //   version: REPLICATE_NSFW_MODEL,
+    //   input: {
+    //     image: publicUrl,
+    //   },
+    //   webhook: webhookUrl.toString(),
+    //   webhook_events_filter: ["completed"],
+    // });
 
-    if (replicateError) {
-      return NextResponse.json(
-        { message: "An issue has occured with the AI model." },
-        { status: 500 }
-      );
-    }
+    // if (replicateError) {
+    //   return NextResponse.json(
+    //     { message: "An issue has occured with the AI model." },
+    //     { status: 500 }
+    //   );
+    // }
 
     return NextResponse.json({
       message: "File uploaded",
@@ -134,7 +131,7 @@ export async function POST(req: NextRequest) {
     });
   } catch (error: unknown) {
     if (error instanceof Error) {
-      return NextResponse.json({ message: error?.message }, { status: 500 });
+      return NextResponse.json({ error: error?.message }, { status: 500 });
     }
   }
 }
