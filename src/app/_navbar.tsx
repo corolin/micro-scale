@@ -62,7 +62,7 @@ export default async function Navbar() {
             </div>
           )}
           <Button asChild>
-            <Link href="/upscale">Upload my image</Link>
+            <Link href="/upscale">Upscale</Link>
           </Button>
         </div>
       </nav>

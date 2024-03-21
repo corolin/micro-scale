@@ -4,9 +4,9 @@ import replicate from "@/lib/replicate";
 import createSupabaseAdminClient from "@/lib/supabase/admin";
 import { getBaseUrl } from "@/lib/utils";
 import { nanoid } from "nanoid";
+import { revalidatePath } from "next/cache";
 import { NextResponse, type NextRequest } from "next/server";
 import { PredictionStatus } from "../../../../types/predictions";
-import { revalidatePath } from "next/cache";
 
 export async function POST(req: NextRequest) {
   const data = await req.formData();
@@ -109,21 +109,25 @@ export async function POST(req: NextRequest) {
     webhookUrl.searchParams.set("id", newPrediction.id.toString());
     webhookUrl.searchParams.set("input_url", publicUrl);
 
-    // const { error: replicateError } = await replicate.predictions.create({
-    //   version: REPLICATE_NSFW_MODEL,
-    //   input: {
-    //     image: publicUrl,
-    //   },
-    //   webhook: webhookUrl.toString(),
-    //   webhook_events_filter: ["completed"],
+    /**
+     * ! UNCOMMENT THIS CODE TO ENABLE THE REPLICATE API
+     */
+
+    // const { error: replicateError } = await createReplicatePrediction({
+    //   imageUrl: publicUrl,
+    //   webhookUrl,
     // });
 
     // if (replicateError) {
     //   return NextResponse.json(
-    //     { message: "An issue has occured with the AI model." },
+    //     { error: replicateError.message },
     //     { status: 500 }
     //   );
     // }
+
+    /**
+     * ! UNCOMMENT THIS CODE TO ENABLE THE REPLICATE API
+     */
 
     return NextResponse.json({
       message: "File uploaded",
@@ -134,4 +138,22 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: error?.message }, { status: 500 });
     }
   }
+}
+
+type PredictionOptions = {
+  imageUrl: string;
+  webhookUrl: URL;
+};
+async function createReplicatePrediction({
+  imageUrl,
+  webhookUrl,
+}: PredictionOptions) {
+  return await replicate.predictions.create({
+    version: REPLICATE_NSFW_MODEL,
+    input: {
+      image: imageUrl,
+    },
+    webhook: webhookUrl.toString(),
+    webhook_events_filter: ["completed"],
+  });
 }

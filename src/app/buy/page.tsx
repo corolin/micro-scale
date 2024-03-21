@@ -106,6 +106,14 @@ export default function Page() {
               Buy Credits
             </Button>
           </div>
+
+          <p className="text-xs text-zinc-500 mt-5">
+            By purchasing, you agree to our{" "}
+            <Link href="/terms" className="underline">
+              Terms of Service
+            </Link>
+            .
+          </p>
         </section>
       </div>
     </>
