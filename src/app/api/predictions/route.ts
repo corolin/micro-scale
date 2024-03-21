@@ -6,10 +6,10 @@ export async function POST(req: NextRequest) {
   const predictionId = searchParams.get("id");
 
   if (!predictionId) {
-    return {
-      status: 400,
-      body: "An error has occured.",
-    };
+    return NextResponse.json(
+      { error: "Missing prediction ID" },
+      { status: 400 }
+    );
   }
 
   const supabase = await createSupabaseServerClient();
@@ -20,10 +20,7 @@ export async function POST(req: NextRequest) {
     .single();
 
   if (error) {
-    return {
-      status: 500,
-      body: error.message,
-    };
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
   return NextResponse.json({ prediction: data });
