@@ -71,7 +71,7 @@ export default function UploadTemplate() {
           </LoadingOverlay>,
           document.body
         )}
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center mb-10">
         {previewUrl && (
           <div className="w-1/2 aspect-square grid content-start">
             <div className="w-full h-full border flex items-center justify-center p-4 aspect-square rounded-lg group relative">

@@ -29,6 +29,13 @@ export default function BuyCheckoutTemplate() {
    * Display a toast message based on the purchase status
    */
   useEffect(() => {
+    if (
+      !sessionId ||
+      !searchParams.get("success") ||
+      !searchParams.get("canceled")
+    )
+      return;
+
     if (isCanceled) {
       toast.error(
         "Your purchase was canceled or an error has occured with your payment."
