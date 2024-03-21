@@ -4,6 +4,7 @@ import createSupabaseServerClient from "@/lib/supabase/server";
 import Image from "next/image";
 import Link from "next/link";
 import UserDropdownMenu from "./_user-menu";
+import { SVGProps } from "react";
 
 export const dynamic = "force-dynamic";
 
@@ -31,11 +32,11 @@ export default async function Navbar() {
         <Button variant="link" asChild>
           <Link href="/">
             <Image
-              src="/logo.svg"
-              width={223}
-              height={74}
-              alt="Micro Scale Logo"
-              className="mr-2 aspect-video w-32 hover:opacity-80 transition-opacity"
+              src="/logo.png"
+              width={1039}
+              height={349}
+              alt="MicroScale Logo"
+              className="w-36"
             />
             <span className="sr-only">µScale</span>
           </Link>

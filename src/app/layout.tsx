@@ -13,8 +13,37 @@ import Navbar from "./_navbar";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "µScale - Next.js and Replicate template",
-  description: "A Next.js and Replicate template to upscale your images.",
+  metadataBase: new URL("https://uscale.imadil.dev"),
+  title: {
+    default: "µScale - An open-source image upscaling template for Next.js",
+    template: "%s | µScale",
+  },
+  description:
+    "Use this open-source image upscaling template for your Next.js project. Powered by Replicate AI.",
+  openGraph: {
+    title: "µScale - An open-source image upscaling template for Next.js",
+    description:
+      "Use this open-source image upscaling template for your Next.js project. Powered by Replicate AI.",
+    url: "https://uscale.imadil.dev",
+    siteName: "µScale",
+    locale: "en_US",
+    type: "website",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  twitter: {
+    title: "µScale",
+    card: "summary_large_image",
+  },
 };
 
 export default function RootLayout({
