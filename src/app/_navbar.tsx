@@ -26,18 +26,18 @@ export default async function Navbar() {
   const credits = await getUserCredits(data.session?.user.id);
 
   return (
-    <aside className="tracking-tight p-4">
+    <aside className="tracking-tight px-4 pt-8">
       <nav className="flex flex-row" id="nav">
         <Button variant="link" asChild>
           <Link href="/">
             <Image
               src="/logo.svg"
-              width={24}
-              height={24}
+              width={223}
+              height={74}
               alt="Micro Scale Logo"
-              className="mr-2"
+              className="mr-2 aspect-video w-32 hover:opacity-80 transition-opacity"
             />
-            <span>µScale</span>
+            <span className="sr-only">µScale</span>
           </Link>
         </Button>
         <div className="flex flex-row space-x-4 ml-auto">
