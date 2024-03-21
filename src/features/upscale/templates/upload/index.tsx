@@ -71,7 +71,7 @@ export default function UploadTemplate() {
           </LoadingOverlay>,
           document.body
         )}
-      <div className="min-h-dvh flex items-center justify-center">
+      <div className="flex items-center justify-center">
         {previewUrl && (
           <div className="w-1/2 aspect-square grid content-start">
             <div className="w-full h-full border flex items-center justify-center p-4 aspect-square rounded-lg group relative">
@@ -119,7 +119,6 @@ export default function UploadTemplate() {
                 depending on traffic and will cost{" "}
                 <span className="text-black">1</span> credit.
               </span>
-              div
             </div>
           </div>
         )}
