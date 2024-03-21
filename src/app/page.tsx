@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div className="flex min-h-dvh flex-col items-center pt-40">
-      <section className="flex flex-col justify-center items-center">
+      <section id="hero" className="flex flex-col justify-center items-center">
         <h1 className="text-5xl lg:text-6xl xl:text-7xl font-semibold text-balance text-center font-heading">
           A micro app to upscale your images using Replicate AI
         </h1>
@@ -21,7 +21,10 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="w-full rounded-tl-none rounded-3xl  p-6 mt-56">
+      <section
+        id="features"
+        className="w-full rounded-tl-none rounded-3xl  p-6 mt-56"
+      >
         <h3 className="text-4xl font-semibold text-balance text-center font-heading text-zinc-800">
           Features
         </h3>
@@ -54,7 +57,7 @@ export default function Home() {
               >
                 nightmareai/real-esrgan
               </Link>{" "}
-              model to upscale images
+              model to upscale images.
             </span>
           </div>
 
@@ -67,7 +70,7 @@ export default function Home() {
             />
             <h4 className="text-base font-medium text-balance">Stripe.js</h4>
             <p className="text-sm text-zinc-500">
-              Buy credits to upscale your images
+              Buy credits with Stripe Checkout.
             </p>
           </div>
           <div className="w-full h-full bg-white border border-zinc-200 p-5 rounded-3xl rounded-tl-none space-y-2">
@@ -79,7 +82,8 @@ export default function Home() {
             />
             <h4 className="text-base font-medium text-balance">Supabase</h4>
             <p className="text-sm text-zinc-500">
-              A Postgres database to store user data and images
+              Authentication, storage, and database to manage credits and
+              images.
             </p>
           </div>
         </div>
