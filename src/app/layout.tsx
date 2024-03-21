@@ -3,6 +3,7 @@ import "./globals.css";
 
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 import { Toaster } from "sonner";
 
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
@@ -55,6 +56,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={cn("antialiased flex flex-col", inter.className)}>
         <Toaster />
+        <Analytics />
         <main className="w-full max-w-7xl mx-auto mb-20 grow h-full">
           <Navbar />
           {children}

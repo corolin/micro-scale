@@ -9,6 +9,7 @@ export const env = createEnv({
     NGROK_URL: z.string().url().optional(),
     STRIPE_SECRET_KEY: z.string().min(1),
     STRIPE_WEBHOOK_SECRET: z.string().min(1),
+    SITE_URL: z.string().url(),
   },
   clientPrefix: "NEXT_PUBLIC_",
   client: {
@@ -27,5 +28,6 @@ export const env = createEnv({
     NGROK_URL: process.env.NGROK_URL,
     STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
     STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
+    SITE_URL: process.env.SITE_URL,
   },
 });

@@ -20,6 +20,7 @@
     "@supabase/ssr": "^0.1.0",
     "@supabase/supabase-js": "^2.39.8",
     "@t3-oss/env-nextjs": "^0.9.2",
+    "@vercel/analytics": "^1.2.2",
     "cal-sans": "^1.0.1",
     "chalk": "^5.3.0",
     "class-variance-authority": "^0.7.0",
