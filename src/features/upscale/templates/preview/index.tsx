@@ -43,12 +43,14 @@ export default function PreviewTemplate({ prediction }: Props) {
             <ReactCompareSliderImage
               src={prediction.input_url!}
               alt="Original image"
+              loading="eager"
             />
           }
           itemTwo={
             <ReactCompareSliderImage
               src={prediction.output_url!}
               alt="Improved image"
+              loading="eager"
             />
           }
           className="flex max-w-96 mx-auto rounded-lg"
